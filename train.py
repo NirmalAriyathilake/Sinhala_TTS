@@ -144,19 +144,22 @@ if __name__ == '__main__':
     sv = tf.train.Supervisor(logdir=logdir, save_model_secs=0, global_step=g.global_step)
     with sv.managed_session() as sess:
         while 1:
-            for _ in tqdm(range(g.num_batch), total=g.num_batch, ncols=70, leave=False, unit='b'):
-                gs, _ = sess.run([g.global_step, g.train_op])
+            try :
+                for _ in tqdm(range(g.num_batch), total=g.num_batch, ncols=70, leave=False, unit='b'):
+                    gs, _ = sess.run([g.global_step, g.train_op])
 
-                # Write checkpoint files at every 1k steps
-                if gs % 1000 == 0:
-                    sv.saver.save(sess, logdir + '/model_gs_{}'.format(str(gs // 1000).zfill(3) + "k"))
+                    # Write checkpoint files at every 1k steps
+                    if gs % 1000 == 0:
+                        sv.saver.save(sess, logdir + '/model_gs_{}'.format(str(gs // 1000).zfill(3) + "k"))
 
-                    if num==1:
-                        # plot alignment
-                        alignments = sess.run(g.alignments)
-                        plot_alignment(alignments[0], str(gs // 1000).zfill(3) + "k", logdir)
+                        if num==1:
+                            # plot alignment
+                            alignments = sess.run(g.alignments)
+                            plot_alignment(alignments[0], str(gs // 1000).zfill(3) + "k", logdir)
 
-                # break
-                if gs > hp.num_iterations: break
+                    # break
+                    if gs > hp.num_iterations: break
+            except tf.errors.OutOfRangeError:
+                print("end of training dataset")
 
     print("Done")
