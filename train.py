@@ -137,7 +137,6 @@ class Graph:
 if __name__ == '__main__':
     # argument: 1 or 2. 1 for Text2mel, 2 for SSRN.
     num = int(sys.argv[1])
-
     g = Graph(num=num); print("Training Graph loaded")
 
     logdir = hp.logdir + "-" + str(num)
@@ -151,14 +150,18 @@ if __name__ == '__main__':
                     # Write checkpoint files at every 1k steps
                     if gs % 1000 == 0:
                         sv.saver.save(sess, logdir + '/model_gs_{}'.format(str(gs // 1000).zfill(3) + "k"))
+                        print("Training : " + str(gs))
 
                         if num==1:
                             # plot alignment
+                            print("Training : num = 1")
                             alignments = sess.run(g.alignments)
                             plot_alignment(alignments[0], str(gs // 1000).zfill(3) + "k", logdir)
 
                     # break
-                    if gs > hp.num_iterations: break
+                    if gs > hp.num_iterations: 
+                        print("Training : num iterate")
+                        break
             except tf.errors.OutOfRangeError:
                 print("end of training dataset")
 
