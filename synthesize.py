@@ -34,11 +34,11 @@ def synthesize():
         saver1.restore(sess, tf.train.latest_checkpoint(hp.logdir + "-1"))
         print("Text2Mel Restored!")
 
-        # var_list = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, 'SSRN') + \
-        #            tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, 'gs')
-        # saver2 = tf.train.Saver(var_list=var_list)
-        # saver2.restore(sess, tf.train.latest_checkpoint(hp.logdir + "-2"))
-        # print("SSRN Restored!")
+        var_list = tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES, 'SSRN') + \
+                   tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES, 'gs')
+        saver2 = tf.train.Saver(var_list=var_list)
+        saver2.restore(sess, tf.train.latest_checkpoint(hp.logdir + "-2"))
+        print("SSRN Restored!")
 
         # Feed Forward
         ## mel
