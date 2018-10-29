@@ -1,9 +1,6 @@
 # -*- coding: utf-8 -*-
 #/usr/bin/python2
-'''
-By kyubyong park. kbpark.linguist@gmail.com. 
-https://www.github.com/kyubyong/dc_tts
-'''
+
 class Hyperparams:
     '''Hyper parameters'''
     # pipeline
@@ -34,7 +31,7 @@ class Hyperparams:
     # data
     data = "data/SL_LAN"
     # data = "/data/private/voice/kate"
-    test_data = 'harvard_sentences.txt'
+    test_data = 'input_data.txt'
     vocab = "PE abcdefghijklmnopqrstuvwxyz'.?" # P: Padding, E: EOS.
     max_N = 180 # Maximum number of characters.
     max_T = 210 # Maximum number of mel frames.
