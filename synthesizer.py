@@ -47,7 +47,7 @@ def synthesize(inputtext):
     print("Synthesizing...")
 
     if not os.path.exists(hp.sampledir): os.makedirs(hp.sampledir)
-    outfile = os.path.join(hp.sampledir, 'test.wav')
+    outfile = os.path.join(hp.sampledir, 'output.wav')
 
     # data = []
     # for infile in infiles:
@@ -69,6 +69,8 @@ def synthesize(inputtext):
         comb += s
 
     comb.export(outfile, format="wav")
+
+    print("Done")
 
 
 if __name__ == '__main__':

@@ -23,13 +23,13 @@ def view_method():
     inputtext = request.args.get('input')
     synthesizer.synthesize(inputtext)
 
-    path_to_file = os.path.join(hp.sampledir, 'test.wav')
+    path_to_file = os.path.join(hp.sampledir, 'output.wav')
 
     return send_file(
         path_to_file,
         mimetype="audio/wav",
         as_attachment=True,
-        attachment_filename="test.wav")
+        attachment_filename="output.wav")
 
 
 def main():
